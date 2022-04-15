@@ -1,0 +1,51 @@
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Ubuntu;
+  background: linear-gradient(#b3ffab, #67fffc);
+}
+.main {
+  display: flex;
+  height: 100vh;
+}
+.stage {
+  height:60vh;
+  width:60vh;
+}
+.sidebar {
+  width: 200px;
+}
+.content {
+  flex: 1 0 auto;
+}
+section {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  background-color: orange;
+  width:100%;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  height: 60vh;
+  width: 60vh;
+}
+.grid-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+span{
+  text-align: center;
+  padding:3px;
+}
+button{
+  padding:3px;
+  margin:3px;
+}
+

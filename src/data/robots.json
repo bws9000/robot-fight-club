@@ -1,0 +1,11 @@
+[
+    {"name": "George", "type" : 0, "height": 100, "color": "#BB7B1E", "active":true},
+    {"name": "Bob", "type" : 1, "height": 100, "color": "#408FD1", "active":true},
+    {"name": "Sally", "type" : 2, "height": 100, "color": "#40D18F", "active":true},
+    {"name": "Chester", "type" : 3, "height": 100, "color": "#D140B4", "active":true},
+    {"name": "Frank", "type" : 4, "height": 100, "color": "#79B010", "active":true},
+    {"name": "Alex", "type" : 5, "height": 100, "color": "#DB3741", "active":true},
+    {"name": "Bill", "type" : 6, "height": 100, "color": "#EA8E7C", "active":true},
+    {"name": "Richard", "type" : 7, "height": 100, "color": "#08F5E3", "active":true},
+    {"name": "Suzy", "type" : 8, "height": 100, "color": "#0CF508", "active":true}
+]
