@@ -1,8 +1,8 @@
 {
-  "name": "front-end",
+  "name": "robot-fight-club",
   "version": "0.1.0",
   "private": true,
-  "description": "Test app for Apertureed.com 4 hour interview project.",
+  "description": "Select a robot. Fight!",
   "author": {
     "name": "Burt Snyder",
     "email": "snyder.burt@gmail.com"
@@ -12,9 +12,8 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "debug": "^4.3.1",
-    "express": "^4.17.1",
     "http-errors": "^1.8.0",
-    "morgan": "^1.10.0",
+    "logrocket": "^2.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^6.3.0",
@@ -56,7 +55,9 @@
     ]
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "concurrently": "^5.3.0",
+    "eslint-plugin-react": "^7.29.4",
     "nodemon": "^2.0.7"
   }
 }

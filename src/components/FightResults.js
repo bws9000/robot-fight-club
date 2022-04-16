@@ -1,27 +1,27 @@
 
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
-import GameHistoryDataHook from "../lib/hooks/GameHistoryDataHook";
+import GameHistoryDataHook from '../lib/hooks/GameHistoryDataHook';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 const FightResults = () => {
 
-    const { result } = useParams();
+  const { result } = useParams();
 
-    const { history, dispatchHistory} = GameHistoryDataHook();
+  const { history, dispatchHistory } = GameHistoryDataHook();
 
-    useEffect(()=>{
-        dispatchHistory('HISTORY', {});
-    },[dispatchHistory]);
+  useEffect(() => {
+    dispatchHistory('HISTORY', {});
+  }, [dispatchHistory]);
 
-    return (
-        <div>
-            <h1>{(Number(result) === 0) ? 'You Won!' : 'You Lost!'}</h1>
-            <h3>History:</h3>
-            <span>{JSON.stringify(history)}</span>
-        </div>
-    )
-}
+  return (
+    <div>
+      <h1>{(Number(result) === 0) ? 'You Won!' : 'You Lost!'}</h1>
+      <h3>History:</h3>
+      <span>{JSON.stringify(history)}</span>
+    </div>
+  );
+};
 
 export default FightResults;
