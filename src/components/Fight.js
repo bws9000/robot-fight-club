@@ -36,7 +36,7 @@ const Fight = ({ selectedRobotId }) => {
 
   useEffect(() => {
 
-    if (!selectedRobotId) {
+    if (selectedRobotId < 0) {
       navigate('/');
       return;
     }
