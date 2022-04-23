@@ -12,17 +12,17 @@ const ViewAllRobots = () => {
   const { robots, dispatchRobot } = RobotDataHook();
     
   useEffect(() => {
-    dispatchRobot('ALL_ACTIVE_ROBOTS', {});
+    return dispatchRobot('ALL_ACTIVE_ROBOTS', { id: 0 });
   }, [dispatchRobot]);
     
-  const getStyle = (color) => {
+  const getStyle = (color:string) => {
     return {
       cursor:'pointer',
       backgroundColor: color,
     };
   };
 
-  const clickRobot = (id) => {
+  const clickRobot = (id:number) => {
     navigate('/robot/' + id);
   };
     
@@ -39,7 +39,6 @@ const ViewAllRobots = () => {
               style={getStyle(robot.color)}
               src={robotImage}
               alt={robot.name}
-              type={robot.type}
               height={100}
             />
           </div>

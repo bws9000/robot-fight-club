@@ -5,6 +5,8 @@ import GameHistoryDataHook from '../lib/hooks/GameHistoryDataHook';
 
 import { useEffect } from 'react';
 
+import IHistoryDetails from '../interface/IHistoryDetails';
+
 const FightResults = () => {
 
   const { result } = useParams();
@@ -12,7 +14,8 @@ const FightResults = () => {
   const { history, dispatchHistory } = GameHistoryDataHook();
 
   useEffect(() => {
-    dispatchHistory('HISTORY', {});
+    const details:IHistoryDetails = { you:0, opponent:0 };
+    return dispatchHistory('HISTORY', { item: details });
   }, [dispatchHistory]);
 
   return (

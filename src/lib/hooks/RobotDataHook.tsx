@@ -2,12 +2,14 @@ import { useState, useCallback } from 'react';
 
 import Robots from '../../data/robots.json';
 
+import IRobot from '../../interface/IRobot';
+
 const RobotDataHook = () => {
 
   const [robots, setRobots] = useState(Robots);
-  const [randomRobot, setRandomRobot] = useState([]);
+  const [randomRobot, setRandomRobot] = useState<IRobot>();
 
-  const dispatchRobot = useCallback((action, payload) => {
+  const dispatchRobot = useCallback((action: any, payload: { id: number; }) => {
     switch (action) {
     case 'ALL_ACTIVE_ROBOTS':
       const allActive = Robots.filter(r => r.active === true);
@@ -22,9 +24,12 @@ const RobotDataHook = () => {
       return;
     case 'RANDOM_OPPONENT':
       const activeRandom = Robots.filter(r => r.active === true);
+      const notWithMySelectedRobot = activeRandom.filter(
+        r => Number(r.type) !== Number(payload.id));
+
       const r = Math.floor(Math.random() * (activeRandom.length));
-      const notWithMySelectedRobot = activeRandom.filter(r => r.type !== payload.id);
-      const rand = notWithMySelectedRobot[r];
+      const rand:IRobot = notWithMySelectedRobot[r];
+      console.log(rand); /* my todo list: start testing */
       setRandomRobot(rand);
       return;
     default:

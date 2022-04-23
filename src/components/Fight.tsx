@@ -7,14 +7,17 @@ import GameHistoryDataHook from '../lib/hooks/GameHistoryDataHook';
 
 import { useNavigate } from 'react-router-dom';
 
-const Fight = ({ selectedRobotId }) => {
+const Fight = ({ selectedRobotId = 0 }) => {
     
   const { robots, randomRobot, dispatchRobot } = RobotDataHook();
+  
+  const randomRobotColor: string = randomRobot?.color ?? '';
+
   const { dispatchHistory } = GameHistoryDataHook();
 
   const navigate = useNavigate();
 
-  const getStyle = (color) => {
+  const getStyle = (color:string) => {
     return {
       cursor:'pointer',
       backgroundColor: color,
@@ -41,7 +44,7 @@ const Fight = ({ selectedRobotId }) => {
       return;
     }
 
-    dispatchRobot('ALL_ACTIVE_ROBOTS', {});
+    dispatchRobot('ALL_ACTIVE_ROBOTS', { id: 0 });
     dispatchRobot('RANDOM_OPPONENT', { id:selectedRobotId });
 
   }, [dispatchRobot, navigate, selectedRobotId]);
@@ -56,16 +59,14 @@ const Fight = ({ selectedRobotId }) => {
           style={getStyle(robots[selectedRobotId]?.color)}
           src={robotImage}
           alt={robots[selectedRobotId]?.name}
-          type={selectedRobotId}
           height={100}
         />
         <h3>{`My Robot: ${robots[selectedRobotId]?.name}`} </h3>
 
         <img
-          style={getStyle(randomRobot?.color)}
+          style={getStyle(randomRobotColor)}
           src={robotImage}
           alt={randomRobot?.name}
-          type={randomRobot?.type}
           height={100}
         />
         <h3>My Opponent: {randomRobot?.name}</h3>

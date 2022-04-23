@@ -15,13 +15,15 @@ import UserDataHook from './lib/hooks/UserDataHook';
 
 function App() {
 
-  const { selectedRobotId, dispatchUser } = UserDataHook();
+  const { selectedRobotId = 0, dispatchUser } = UserDataHook();
 
-  const selectRobotFunc = (id) => {
+  const selectRobotFunc = (id:number):void => {
     dispatchUser('SELECT_ROBOT', { id : id });
+    return;
   };
-  const deselectRobotFunc = () => {
-    dispatchUser('DESELECT_ROBOT', {});
+  const deselectRobotFunc = ():void => {
+    dispatchUser('DESELECT_ROBOT', { id: undefined });
+    return;
   };
 
   return (
