@@ -4,19 +4,26 @@ import Robots from '../../data/robots.json';
 
 import IRobot from '../../interface/IRobot';
 
-const RobotDataHook = () => {
+import { 
+  getAllActiveRobots,
+  getOneRobot,
+} from '../../game/actions';
 
-  const [robots, setRobots] = useState(Robots);
+const RobotDataHook = () => {
+  
+  const initRobots:IRobot[] = Robots;
+  
+  const [robots, setRobots] = useState(initRobots);
   const [randomRobot, setRandomRobot] = useState<IRobot>();
 
-  const dispatchRobot = useCallback((action: any, payload: { id: number; }) => {
+  const dispatchRobot = useCallback(async (action: any, payload: { id: number; }) => {
     switch (action) {
     case 'ALL_ACTIVE_ROBOTS':
-      const allActive = Robots.filter(r => r.active === true);
+      const allActive = await getAllActiveRobots(Robots);
       setRobots(allActive);
       return;
     case 'ONE_ROBOT':
-      const oneRobot = Robots.filter(r => r.type === Number(payload.id));
+      const oneRobot = await getOneRobot(Robots, payload.id);
       setRobots(oneRobot);
       return;
     case 'DEACTIVATE_ROBOT':

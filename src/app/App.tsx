@@ -4,18 +4,18 @@ import {
 
 import './App.css';
 
-import About from './pageComponents/About';
+import About from '../pageComponents/About';
 
-import Fight from './components/Fight';
-import ViewAllRobots from './components/ViewAllRobots';
-import ViewRobot from './components/ViewRobot';
-import FightResults from './components/FightResults';
+import Fight from '../components/Fight';
+import ViewAllRobots from '../components/ViewAllRobots';
+import ViewRobot from '../components/ViewRobot';
+import FightResults from '../components/FightResults';
 
-import UserDataHook from './lib/hooks/UserDataHook';
+import UserDataHook from '../lib/hooks/UserDataHook';
 
 function App() {
 
-  const { selectedRobotId = 0, dispatchUser } = UserDataHook();
+  const { selectedRobotId = -1, dispatchUser } = UserDataHook();
 
   const selectRobotFunc = (id:number):void => {
     dispatchUser('SELECT_ROBOT', { id : id });

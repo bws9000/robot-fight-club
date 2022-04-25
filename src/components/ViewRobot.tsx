@@ -19,10 +19,10 @@ const ViewRobot: React.FC<IViewRobotFunctions> =
   const { id } = useParams();
     
   useEffect(() => {
-    return dispatchRobot('ONE_ROBOT', { id:Number(id) });
+    dispatchRobot('ONE_ROBOT', { id:Number(id) });
   }, [dispatchRobot, id]);
 
-  const getStyle = (color:string) => {
+  const getStyle = (color:any) => {
     return {
       cursor:'pointer',
       backgroundColor: color,

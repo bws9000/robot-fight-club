@@ -1,8 +1,9 @@
 
-import { useEffect } from 'react';
+import { Key, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import robotImage from '../assets/Robot.svg';
+import IRobot from '../interface/IRobot';
 
 import RobotDataHook from '../lib/hooks/RobotDataHook';
 
@@ -12,17 +13,17 @@ const ViewAllRobots = () => {
   const { robots, dispatchRobot } = RobotDataHook();
     
   useEffect(() => {
-    return dispatchRobot('ALL_ACTIVE_ROBOTS', { id: 0 });
+    dispatchRobot('ALL_ACTIVE_ROBOTS', { id: 0 });
   }, [dispatchRobot]);
     
-  const getStyle = (color:string) => {
+  const getStyle = (color:any) => {
     return {
       cursor:'pointer',
       backgroundColor: color,
     };
   };
 
-  const clickRobot = (id:number) => {
+  const clickRobot = (id:any) => {
     navigate('/robot/' + id);
   };
     
@@ -30,7 +31,8 @@ const ViewAllRobots = () => {
         
     <div className="grid-container">
       {
-        robots.map((robot, index) => (
+        robots.map((robot: IRobot, 
+          index: Key | null | undefined) => (
           <div onClick={ () => {
             clickRobot(robot.type); 
           } }

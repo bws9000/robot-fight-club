@@ -17,7 +17,7 @@ const Fight = ({ selectedRobotId = 0 }) => {
 
   const navigate = useNavigate();
 
-  const getStyle = (color:string) => {
+  const getStyle = (color:any) => {
     return {
       cursor:'pointer',
       backgroundColor: color,
