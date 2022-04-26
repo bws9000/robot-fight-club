@@ -1,4 +1,4 @@
 export default interface IHistoryDetails{
-    you?:number;
-    opponent?:number;
+    you:number;
+    opponent:number;
 }

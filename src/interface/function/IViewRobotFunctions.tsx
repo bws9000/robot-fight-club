@@ -1,4 +1,4 @@
 export default interface fp{
-    selectRobotFunc(id:number):void;
-    deselectRobotFunc():void;
+    selectRobotFunc(robotId:number, index:number):void;
+    deselectRobotFunc(robotId:number, index:number):void;
 }
