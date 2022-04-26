@@ -5,21 +5,22 @@ import React, { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import RobotDataHook from '../lib/hooks/RobotDataHook';
+import RobotDataHook from '../lib/hooks/data/RobotDataHook';
 
 import IViewRobotFunctions from '../interface/function/IViewRobotFunctions';
 
 const ViewRobot: React.FC<IViewRobotFunctions> = 
 ({ selectRobotFunc, deselectRobotFunc }) => {
 
-  const { robots, dispatchRobot } = RobotDataHook();
+  const { robots, oneRobot, dispatchRobot } = RobotDataHook();
 
   const navigate = useNavigate();
 
   const { id } = useParams();
     
   useEffect(() => {
-    dispatchRobot('ONE_ROBOT', { id:Number(id) });
+    dispatchRobot('ONE_ROBOT', { robotId: Number(id), 
+      selectedRobotIndex: Number(id) });
   }, [dispatchRobot, id]);
 
   const getStyle = (color:any) => {
@@ -30,17 +31,18 @@ const ViewRobot: React.FC<IViewRobotFunctions> =
   };
 
   const clickRobot = () => {
-    alert(JSON.stringify(robots[0]));
+    alert(JSON.stringify(robots[Number(id)]));
   };
 
   const deleteRobot = () => {
-    dispatchRobot('DEACTIVATE_ROBOT', { id:Number(id) });
-    deselectRobotFunc();
+    dispatchRobot('DEACTIVATE_ROBOT', { robotId: Number(id), 
+      selectedRobotIndex:Number(id) });
+    deselectRobotFunc(Number(id), Number(id));
     navigate('/');
   };
 
   const selectRobot = () => {
-    selectRobotFunc(Number(id));
+    selectRobotFunc(Number(id), Number(id));
     navigate('/fight');
   };
     
@@ -49,7 +51,7 @@ const ViewRobot: React.FC<IViewRobotFunctions> =
             
       <div className="grid-box">  
         <img
-          style={getStyle(robots[0].color)}
+          style={getStyle(oneRobot?.color)}
           src={robotImage}
           alt={robots[0].name}
           height={500}

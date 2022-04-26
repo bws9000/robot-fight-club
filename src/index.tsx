@@ -5,6 +5,9 @@ import App from './app/App';
 
 import LogRocket from 'logrocket';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 LogRocket.init('bxwv0m/robot-fight-club');
 
 const wsURI = 'ws://localhost:3001';
@@ -27,6 +30,7 @@ ws.onclose = () => {
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    <ToastContainer />
   </React.StrictMode>,
   document.getElementById('root'),
 );

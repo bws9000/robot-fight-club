@@ -1,21 +1,19 @@
 import { useState, useCallback } from 'react';
 
-import History from '../../data/history.json';
+import History from '../../../data/history.json';
 
-import IHistoryDetails from '../../interface/IHistoryDetails';
+import IHistoryDetails from '../../../interface/IHistoryDetails';
 
 const GameHistoryDataHook = () => {
 
-  const [history, setHistory] = useState<IHistoryDetails[]>([]);
+  const [history] = useState<IHistoryDetails[]>(History);
 
   const dispatchHistory = useCallback((action: string, 
     payload:{item:IHistoryDetails}) => {
     switch (action) {
-    case 'HISTORY':
-      setHistory(History);
-      return;
     case 'ADD_ENTRY':
-      history.push(payload.item);
+      const item:IHistoryDetails = payload.item;
+      history.push(item);
       return;
     default:
       return;

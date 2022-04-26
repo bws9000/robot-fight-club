@@ -1,4 +1,4 @@
-const CreateNewRobot = () => {
+const CreateNewRobot: React.FC = () => {
 
   return (
     <div>Create New Robot</div>

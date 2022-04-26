@@ -11,16 +11,20 @@ import ViewAllRobots from '../components/ViewAllRobots';
 import ViewRobot from '../components/ViewRobot';
 import FightResults from '../components/FightResults';
 
-import UserDataHook from '../lib/hooks/UserDataHook';
+import UserDataHook from '../lib/hooks/data/UserDataHook';
+import RobotDataHook from '../lib/hooks/data/RobotDataHook';
 
 function App() {
 
   const { selectedRobotId = -1, dispatchUser } = UserDataHook();
+  const { oneRobot, dispatchRobot } = RobotDataHook();
 
-  const selectRobotFunc = (id:number):void => {
-    dispatchUser('SELECT_ROBOT', { id : id });
+  const selectRobotFunc = (robotId:number, index:number):void => {
+    dispatchUser('SELECT_ROBOT', { id : index });
+    dispatchRobot('ONE_ROBOT', { robotId: robotId, selectedRobotIndex: index });
     return;
   };
+
   const deselectRobotFunc = ():void => {
     dispatchUser('DESELECT_ROBOT', { id: undefined });
     return;
@@ -49,13 +53,15 @@ function App() {
                     deselectRobotFunc={deselectRobotFunc}/>} />
                   <Route path='/about' element={ <About/> } />
                   <Route path='/fight' element={ 
-                    <Fight selectedRobotId={ selectedRobotId }/> } />
+                    <Fight oneRobot={ oneRobot } /> } />
                   <Route path='/results/:result' element={<FightResults />} />
                 </Routes>
               </div>
             </section>
           </div>
         </div>
+      </div>
+      <div>
       </div>
     </Router>
 

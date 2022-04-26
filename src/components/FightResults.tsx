@@ -1,13 +1,13 @@
 
 import { useParams } from 'react-router-dom';
 
-import GameHistoryDataHook from '../lib/hooks/GameHistoryDataHook';
+import GameHistoryDataHook from '../lib/hooks/data/GameHistoryDataHook';
 
 import { useEffect } from 'react';
 
 import IHistoryDetails from '../interface/IHistoryDetails';
 
-const FightResults = () => {
+const FightResults: React.FC = () => {
 
   const { result } = useParams();
 

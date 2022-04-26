@@ -2,22 +2,45 @@ import robotImage from '../assets/Robot.svg';
 
 import { useEffect } from 'react';
 
-import RobotDataHook from '../lib/hooks/RobotDataHook';
-import GameHistoryDataHook from '../lib/hooks/GameHistoryDataHook';
+import RobotDataHook from '../lib/hooks/data/RobotDataHook';
+import GameHistoryDataHook from '../lib/hooks/data/GameHistoryDataHook';
 
 import { useNavigate } from 'react-router-dom';
 
-const Fight = ({ selectedRobotId = 0 }) => {
+import IFight from '../interface/IFight';
+
+import ToasterHook from '../lib/hooks/util/Toaster';
+
+const Fight: React.FC<IFight> = ({ oneRobot }) => {
     
-  const { robots, randomRobot, dispatchRobot } = RobotDataHook();
+  const { 
+    selectedRobotIndex, 
+    randomRobot,
+    randomRobotMessage,
+    randomRobotStatus,
+    dispatchRobot } = RobotDataHook();
   
   const randomRobotColor: string = randomRobot?.color ?? '';
 
   const { dispatchHistory } = GameHistoryDataHook();
 
-  const navigate = useNavigate();
+  const { toasty } = ToasterHook();
 
-  const getStyle = (color:any) => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+
+    if (randomRobotStatus === false) {
+      toasty(randomRobotMessage);
+    }
+
+    return (() => {
+      navigate('/');
+    });
+    
+  }, [randomRobotMessage]);
+  
+  const getStyle = (color:string | undefined) => {
     return {
       cursor:'pointer',
       backgroundColor: color,
@@ -39,15 +62,11 @@ const Fight = ({ selectedRobotId = 0 }) => {
 
   useEffect(() => {
 
-    if (selectedRobotId < 0) {
-      navigate('/');
-      return;
-    }
+    dispatchRobot('ALL_ACTIVE_ROBOTS', { robotId: 0, selectedRobotIndex: 0 });
+    dispatchRobot('RANDOM_OPPONENT', 
+      { robotId: 0, selectedRobotIndex: selectedRobotIndex });
 
-    dispatchRobot('ALL_ACTIVE_ROBOTS', { id: 0 });
-    dispatchRobot('RANDOM_OPPONENT', { id:selectedRobotId });
-
-  }, [dispatchRobot, navigate, selectedRobotId]);
+  }, [dispatchRobot, navigate, selectedRobotIndex]);
 
   return (
         
@@ -56,12 +75,12 @@ const Fight = ({ selectedRobotId = 0 }) => {
       <div className="grid-box">
         <h1>Welcome to Robot Fight Club</h1>
         <img
-          style={getStyle(robots[selectedRobotId]?.color)}
+          style={getStyle(oneRobot?.color)}
           src={robotImage}
-          alt={robots[selectedRobotId]?.name}
+          alt={oneRobot?.name}
           height={100}
         />
-        <h3>{`My Robot: ${robots[selectedRobotId]?.name}`} </h3>
+        <h3>{`My Robot: ${oneRobot?.name}`} </h3>
 
         <img
           style={getStyle(randomRobotColor)}
@@ -69,7 +88,7 @@ const Fight = ({ selectedRobotId = 0 }) => {
           alt={randomRobot?.name}
           height={100}
         />
-        <h3>My Opponent: {randomRobot?.name}</h3>
+        <h3>{`My Opponent: ${randomRobot?.name}`}</h3>
         <span>
           <button onClick={ () => {
             fightRobots(); 
