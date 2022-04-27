@@ -20,7 +20,7 @@ const FightResults: React.FC = () => {
 
   return (
     <div>
-      <h1>{(Number(result) === 0) ? 'You Won!' : 'You Lost!'}</h1>
+      <h1>{(Number(result) === 1) ? 'You Won!' : 'You Lost!'}</h1>
       <h3>History:</h3>
       <span>{JSON.stringify(history)}</span>
     </div>

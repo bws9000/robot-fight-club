@@ -19,6 +19,7 @@ const Fight: React.FC<IFight> = ({ selectedRobotId }) => {
     randomRobot,
     randomRobotMessage,
     randomRobotStatus,
+    fightResults,
     dispatchRobot } = RobotDataHook();
 
   const { dispatchHistory } = GameHistoryDataHook();
@@ -35,23 +36,24 @@ const Fight: React.FC<IFight> = ({ selectedRobotId }) => {
   };
 
   const fightRobots = () => {
-    const result = fightResults();
-    const opponentResult = (result > 0) ? 0 : 1;
-    dispatchHistory('ADD_ENTRY', { item:{ you:result, opponent:opponentResult } });
-    navigate('/results/' + result);
-  };
-
-  const fightResults = () => {
-    // 0 me, 1 opponent
-    const fightResults = Math.random();
-    return (fightResults < 0.5) ? 0 : 1;
+    
+    // fight results recorded
+    dispatchHistory('ADD_ENTRY', { item: fightResults });
+    
+    navigate('/results/' + fightResults.you);
   };
 
   useEffect(() => {
+    
+    // fight predetermined
+    dispatchRobot('FIGHT', { robotId: selectedRobotId, selectedRobotIndex: 0 });
+    
     dispatchRobot('ONE_ROBOT', { robotId: selectedRobotId, 
       selectedRobotIndex: selectedRobotIndex });
+
     dispatchRobot('RANDOM_OPPONENT', { robotId: selectedRobotId, 
       selectedRobotIndex: selectedRobotIndex });
+
   }, [dispatchRobot]);
 
   useEffect(() => {

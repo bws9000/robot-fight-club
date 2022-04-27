@@ -4,7 +4,7 @@ import {
 
 import './App.css';
 
-import About from '../pageComponents/About';
+import About from '../componentsPage/About';
 
 import Fight from '../components/Fight';
 import ViewAllRobots from '../components/ViewAllRobots';
@@ -23,7 +23,6 @@ function App() {
   const [robotId, setRobotId] = useState(0);
 
   const selectRobotFunc = (robotId:number, index:number):void => {
-    // dispatchUser('SELECT_ROBOT', { id : index });
     setRobotId(robotId);
     dispatchRobot('ONE_ROBOT', { robotId: Number(robotId), 
       selectedRobotIndex: Number(index) });
@@ -34,10 +33,6 @@ function App() {
     dispatchUser('DESELECT_ROBOT', { id: undefined });
     return;
   };
-
-  // useEffect(() => {
-
-  // }, [robotId]);
 
   return (
 

@@ -1,5 +1,8 @@
+import IHistoryDetails from '../../interface/IHistoryDetails';
 import IReturnRandomStatus from '../../interface/IReturnRandomStatus';
 import IRobot from '../../interface/IRobot';
+
+import { fightResults } from '../logic';
 
 export const getAllActiveRobots = async (Robots: IRobot[]):Promise<IRobot[]> => {
   return Robots.filter((r => r.active === true));
@@ -16,6 +19,13 @@ export const deactivateActiveRobot = (id:number, Robots: IRobot[]):IRobot[] => {
       r.active = false;
       return r;
     });
+};
+
+export const fight = ():IHistoryDetails => {
+  const res = fightResults();
+  const opponentResult = (res > 0) ? 0 : 1;
+  const outcome:IHistoryDetails = { you: res, opponent: opponentResult };
+  return outcome;
 };
 
 export const getRandomOpponent = async (

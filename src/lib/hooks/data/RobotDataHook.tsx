@@ -9,7 +9,9 @@ import {
   getOneRobot,
   getRandomOpponent,
   deactivateActiveRobot,
+  fight,
 } from '../../../game/actions';
+import IHistoryDetails from '../../../interface/IHistoryDetails';
 
 const RobotDataHook = () => {
   
@@ -23,6 +25,8 @@ const RobotDataHook = () => {
   const [randomRobot, setRandomRobot] = useState<IRobot>();
   const [randomRobotStatus, setRandomRobotStatus] = useState(false);
   const [randomRobotMessage, setRandomRobotMessage] = useState('');
+
+  const [fightResults, setFightResults] = useState<IHistoryDetails>(Object);
 
   const dispatchRobot = useCallback(async (action: any, 
     payload: { robotId:number, selectedRobotIndex:number }) => {
@@ -40,16 +44,16 @@ const RobotDataHook = () => {
       setSelectedRobot(oneRobot);
       return;
     case 'DEACTIVATE_ROBOT':
-      // const withDeactivated:IRobot[] = 
-
       deactivateActiveRobot(payload.robotId, Robots);
-
-      // setRobots(deactivateActiveRobot);
       return;
     case 'RANDOM_OPPONENT':
       const { status, message, robotObj } = 
         await getRandomOpponent(Robots, payload.robotId);
       initRandomRobot(status, message, robotObj);
+      return;
+    case 'FIGHT':
+      const result = fight();
+      setFightResults(result);
       return;
     default:
       return;
@@ -73,6 +77,7 @@ const RobotDataHook = () => {
     randomRobot,
     randomRobotStatus,
     randomRobotMessage,
+    fightResults,
     dispatchRobot };
 };
 
