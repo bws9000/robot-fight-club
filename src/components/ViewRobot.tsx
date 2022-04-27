@@ -12,7 +12,11 @@ import IViewRobotFunctions from '../interface/function/IViewRobotFunctions';
 const ViewRobot: React.FC<IViewRobotFunctions> = 
 ({ selectRobotFunc, deselectRobotFunc }) => {
 
-  const { robots, oneRobot, dispatchRobot } = RobotDataHook();
+  const { 
+    robots, 
+    selectedRobot, 
+    selectedRobotId, 
+    dispatchRobot } = RobotDataHook();
 
   const navigate = useNavigate();
 
@@ -42,18 +46,19 @@ const ViewRobot: React.FC<IViewRobotFunctions> =
   };
 
   const selectRobot = () => {
-    selectRobotFunc(Number(id), Number(id));
+    selectRobotFunc(selectedRobotId, Number(id));
     navigate('/fight');
   };
     
   return (
     <div className="grid-container">
             
-      <div className="grid-box">  
+      <div className="grid-box">
+
         <img
-          style={getStyle(oneRobot?.color)}
+          style={getStyle(selectedRobot?.color)}
           src={robotImage}
-          alt={robots[0].name}
+          alt={selectedRobot?.name}
           height={500}
         />
 

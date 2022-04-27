@@ -13,15 +13,20 @@ import FightResults from '../components/FightResults';
 
 import UserDataHook from '../lib/hooks/data/UserDataHook';
 import RobotDataHook from '../lib/hooks/data/RobotDataHook';
+import { useState } from 'react';
 
 function App() {
 
-  const { selectedRobotId = -1, dispatchUser } = UserDataHook();
-  const { oneRobot, dispatchRobot } = RobotDataHook();
+  const { dispatchUser } = UserDataHook();
+  const { dispatchRobot } = RobotDataHook();
+
+  const [robotId, setRobotId] = useState(0);
 
   const selectRobotFunc = (robotId:number, index:number):void => {
-    dispatchUser('SELECT_ROBOT', { id : index });
-    dispatchRobot('ONE_ROBOT', { robotId: robotId, selectedRobotIndex: index });
+    // dispatchUser('SELECT_ROBOT', { id : index });
+    setRobotId(robotId);
+    dispatchRobot('ONE_ROBOT', { robotId: Number(robotId), 
+      selectedRobotIndex: Number(index) });
     return;
   };
 
@@ -30,16 +35,21 @@ function App() {
     return;
   };
 
+  // useEffect(() => {
+
+  // }, [robotId]);
+
   return (
 
     <Router>
       <div className="main">
         <div className="sidebar">
           <ul>
-            <li><Link to="/">Start</Link></li>
+            <li><a href="/" onClick={() => window.location.reload}>Start Over</a></li>
+            <li><Link to="/">Select Robot</Link></li>
             <li><Link to="/about">About</Link></li>
-            {((selectedRobotId < 0) || (selectedRobotId === undefined))
-              ? 'No Robot Selected' : `Robot Selected: ${selectedRobotId}`}
+            {((robotId < 0) || (robotId === undefined))
+              ? 'No Robot Selected' : `Robot Selected: ${robotId}`}
           </ul>
         </div>
         <div className="content">
@@ -53,7 +63,7 @@ function App() {
                     deselectRobotFunc={deselectRobotFunc}/>} />
                   <Route path='/about' element={ <About/> } />
                   <Route path='/fight' element={ 
-                    <Fight oneRobot={ oneRobot } /> } />
+                    <Fight selectedRobotId={ robotId }/> } />
                   <Route path='/results/:result' element={<FightResults />} />
                 </Routes>
               </div>

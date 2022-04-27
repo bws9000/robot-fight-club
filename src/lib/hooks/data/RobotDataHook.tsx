@@ -16,7 +16,8 @@ const RobotDataHook = () => {
   const initRobots:IRobot[] = Robots;
   
   const [robots, setRobots] = useState(initRobots);
-  const [oneRobot, setOneRobot] = useState<IRobot>();
+  const [selectedRobot, setSelectedRobot] = useState<IRobot>();
+  const [selectedRobotId, setSelectedRobotId] = useState(0);
   const [selectedRobotIndex, setSelectedRobotIndex] = useState(0);
 
   const [randomRobot, setRandomRobot] = useState<IRobot>();
@@ -34,17 +35,20 @@ const RobotDataHook = () => {
       setRobots(allActive);
       return;
     case 'ONE_ROBOT':
-      const oneRobot = await getOneRobot(Robots, payload.selectedRobotIndex);
-      setOneRobot(oneRobot);
+      const oneRobot = await getOneRobot(Robots, payload.robotId);
+      setSelectedRobotId(payload.robotId);
+      setSelectedRobot(oneRobot);
       return;
     case 'DEACTIVATE_ROBOT':
-      const withDeactivated:IRobot[] = deactivateActiveRobot(payload.robotId, Robots);
-      console.log(withDeactivated);
+      // const withDeactivated:IRobot[] = 
+
+      deactivateActiveRobot(payload.robotId, Robots);
+
       // setRobots(deactivateActiveRobot);
       return;
     case 'RANDOM_OPPONENT':
-      const { status, message, robotObj } = await getRandomOpponent(
-        Robots, payload.robotId);
+      const { status, message, robotObj } = 
+        await getRandomOpponent(Robots, payload.robotId);
       initRandomRobot(status, message, robotObj);
       return;
     default:
@@ -62,9 +66,10 @@ const RobotDataHook = () => {
   }, []);
 
   return { 
-    robots, 
+    robots,
+    selectedRobot,
+    selectedRobotId,
     selectedRobotIndex,
-    oneRobot,
     randomRobot,
     randomRobotStatus,
     randomRobotMessage,

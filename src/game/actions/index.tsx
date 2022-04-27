@@ -26,20 +26,20 @@ export const getRandomOpponent = async (
   const allActiveRobots = await getAllActiveRobots(Robots);
 
   if (allActiveRobots.length < 2) {
-    result.message = 'Error: Uh Oh! You deleted all your opponents?';
+    result.message = 'Uh Oh! You deleted all your opponents?';
     result.status = false;
     return result;
   }
 
-  console.log(robotId);
+  const activeRandom = Robots
+    .filter(r => r.active === true)
+    .filter(r => Number(r.id) !== Number(robotId));
 
-  // const activeRandom = Robots.filter(r => r.active === true);
-
-  // const r = Math.floor(Math.random() * (activeRandom.length));
-
-  // const notWithMySelectedRobot = activeRandom.filter( r => robotId !== Number(r));
-
-  // const randomOpponent:IRobot = notWithMySelectedRobot[r];
+  const randomRobot = Math.floor(Math.random() * (activeRandom.length));
   
+  result.status = true;
+  result.message = 'Random opponent identified. Fight!';
+  result.robotObj = activeRandom[randomRobot];
+
   return result;
 };

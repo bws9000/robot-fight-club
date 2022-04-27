@@ -1,5 +1,5 @@
 export default interface IRobot{
-    id:number,
+    id:number;
     name:string;
     height:number;
     color:string;

@@ -11,34 +11,21 @@ import IFight from '../interface/IFight';
 
 import ToasterHook from '../lib/hooks/util/Toaster';
 
-const Fight: React.FC<IFight> = ({ oneRobot }) => {
-    
+const Fight: React.FC<IFight> = ({ selectedRobotId }) => {
+
   const { 
-    selectedRobotIndex, 
+    selectedRobot,
+    selectedRobotIndex,
     randomRobot,
     randomRobotMessage,
     randomRobotStatus,
     dispatchRobot } = RobotDataHook();
-  
-  const randomRobotColor: string = randomRobot?.color ?? '';
 
   const { dispatchHistory } = GameHistoryDataHook();
 
   const { toasty } = ToasterHook();
 
   const navigate = useNavigate();
-  
-  useEffect(() => {
-
-    if (randomRobotStatus === false) {
-      toasty(randomRobotMessage);
-    }
-
-    return (() => {
-      navigate('/');
-    });
-    
-  }, [randomRobotMessage]);
   
   const getStyle = (color:string | undefined) => {
     return {
@@ -61,41 +48,45 @@ const Fight: React.FC<IFight> = ({ oneRobot }) => {
   };
 
   useEffect(() => {
+    dispatchRobot('ONE_ROBOT', { robotId: selectedRobotId, 
+      selectedRobotIndex: selectedRobotIndex });
+    dispatchRobot('RANDOM_OPPONENT', { robotId: selectedRobotId, 
+      selectedRobotIndex: selectedRobotIndex });
+  }, [dispatchRobot]);
 
-    dispatchRobot('ALL_ACTIVE_ROBOTS', { robotId: 0, selectedRobotIndex: 0 });
-    dispatchRobot('RANDOM_OPPONENT', 
-      { robotId: 0, selectedRobotIndex: selectedRobotIndex });
-
-  }, [dispatchRobot, navigate, selectedRobotIndex]);
+  useEffect(() => {
+    if (randomRobotMessage.length > 0) toasty(randomRobotMessage);
+  }, [randomRobotMessage]);
 
   return (
         
     <div className="grid-container">
-            
+      
       <div className="grid-box">
         <h1>Welcome to Robot Fight Club</h1>
         <img
-          style={getStyle(oneRobot?.color)}
+          style={getStyle(selectedRobot?.color)}
           src={robotImage}
-          alt={oneRobot?.name}
+          alt={selectedRobot?.name}
           height={100}
         />
-        <h3>{`My Robot: ${oneRobot?.name}`} </h3>
+        <h3>{`My Robot: ${selectedRobot?.name}`} </h3>
 
         <img
-          style={getStyle(randomRobotColor)}
+          style={getStyle(randomRobot?.color)}
           src={robotImage}
           alt={randomRobot?.name}
           height={100}
         />
-        <h3>{`My Opponent: ${randomRobot?.name}`}</h3>
-        <span>
-          <button onClick={ () => {
-            fightRobots(); 
-          }}>Fight!</button>
-        </span>
-      </div>
-                
+
+        { randomRobotStatus &&
+        <><h3>{`My Opponent: ${randomRobot?.name}`}</h3><span>
+          <button onClick={() => {
+            fightRobots();
+          } }>Fight!</button>
+        </span></>
+        }
+      </div>   
     </div>
   );
 };
