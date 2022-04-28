@@ -1,7 +1,7 @@
 {
   "name": "robot-fight-club",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "Select a robot. Fight!",
   "author": {
     "name": "Burt Snyder",

@@ -8,5 +8,5 @@
 ### fight:
 `npm start`
 
-### build on ->
-[ netlify ]( https://willowy-haupia-37f83b.netlify.app/ )
+### dApptastic ->
+[ netlify ]( https://keen-hotteok-5bb955.netlify.app/ )
