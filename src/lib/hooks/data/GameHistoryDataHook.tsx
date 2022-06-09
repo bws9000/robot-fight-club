@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 import History from '../../../data/history.json';
 
@@ -8,7 +8,7 @@ const GameHistoryDataHook = () => {
 
   const [history] = useState<IHistoryDetails[]>(History);
 
-  const dispatchHistory = useCallback((action: string, 
+  const dispatchHistory = ((action: string, 
     payload:{item:IHistoryDetails}) => {
     switch (action) {
     case 'ADD_ENTRY':
@@ -18,7 +18,7 @@ const GameHistoryDataHook = () => {
     default:
       return;
     }
-  }, []);
+  });
 
   return { history, dispatchHistory };
 };

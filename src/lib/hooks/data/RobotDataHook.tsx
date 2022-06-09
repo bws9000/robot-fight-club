@@ -60,14 +60,14 @@ const RobotDataHook = () => {
     }
   }, []);
 
-  const initRandomRobot = useCallback((
+  const initRandomRobot = ((
     status:boolean, 
     message:string, 
     robotObj:IRobot) => {
     setRandomRobotMessage(message);
     setRandomRobot(robotObj);
     setRandomRobotStatus(status);
-  }, []);
+  });
 
   return { 
     robots,

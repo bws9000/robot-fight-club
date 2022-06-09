@@ -1,10 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 const UserDataHook = () => {
 
   const [selectedRobotId, setSelectedRobotId] = useState();
 
-  const dispatchUser = useCallback((action: any, payload: { id: any; }) => {
+  const dispatchUser = ((action: any, payload: { id: any; }) => {
     switch (action) {
     case 'SELECT_ROBOT':
       setSelectedRobotId(payload.id);
@@ -15,7 +15,7 @@ const UserDataHook = () => {
     default:
       return;
     }
-  }, []);
+  });
 
   return { selectedRobotId, dispatchUser };
 };
